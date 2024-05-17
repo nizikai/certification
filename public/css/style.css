@@ -1,28 +1,56 @@
-/* Example CSS */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-    margin: 0;
-    padding: 0;
+/* MARK: LOGIN */
+
+.formContainer{
+    margin-top: 30vh;
+    margin-left: 30vw;
+    padding: 24px;
+    width: 40vw;
+    height: 40vh;
+    border-radius: 1vmin;
+    background-color: white;
 }
 
-.btn-custom {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 4px;
-    text-align: center;
-    cursor: pointer;
-    text-decoration: none;
+.loginBackground {
+    /* to set image as background */
+    top: 0;
+    left: 0;
+    background-image: url('../asset/background.png');
+    background-size: cover; 
+    background-position: center; 
+    width: 100vw; 
+    height: 100vh;
 }
 
-.btn-custom:hover {
-    background-color: #0056b3;
+.loginButton{
+    padding-left: 8vw;
+    padding-right: 8vw;
+
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    /* background-color: ; */
 }
 
-#test{
-    margin-top: 50vh;
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px;
+    padding: 20px;
+}
+/* Main Content */
+.main-content {
+    margin-left: 250px; 
+    padding: 20px;
+}
+/* Navbar Link Styling */
+.nav-link {
+    color: black;
+}
+.nav-link:hover {
+    color: wheat;
+}
+.nav-link.active {
+    font-weight: bold;
 }
