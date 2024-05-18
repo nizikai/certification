@@ -13,21 +13,21 @@
 <body>
     <div class="loginBackground z-n1 position-fixed"></div>
 
-    <form action="" method="POST">
+    <form action="{{ route('auth') }}" method="POST">
         @csrf
         <div class="formContainer z-1 position-fixed">
             {{-- Email field --}}
             <label for="emailForm" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="emailForm" placeholder="name@example.com">
+            <input type="email" class="form-control" name="emailForm" placeholder="name@example.com">
             <br>
 
             {{-- Password field --}}
             <label for="passwordForm" class="form-label">Password</label>
-            <input type="password" id="passwordForm" class="form-control">
+            <input type="password" name="passwordForm" class="form-control" placeholder="Password">
             <br>
 
             {{-- Login button --}}
-            <button type="button" class="btn btn-primary loginButton" >Login</button>
+            <button type="submit" class="btn btn-primary loginButton" >Login</button>
         </div>
     </form>
 
