@@ -26,36 +26,19 @@
             <input type="password" name="passwordForm" class="form-control" placeholder="Password">
             <br>
 
+            {{-- Display error message --}}
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                </div>
+            @endif
+
             {{-- Login button --}}
             <button type="submit" class="btn btn-primary loginButton">Login</button>
         </div>
     </form>
-
-    {{-- @if (session('error'))
-        <div class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive"
-            aria-atomic="true">
-            <div class="d-flex">
-                <div class="toast-body">
-                    {{ session('error') }}
-                </div>
-                <button type="button" class="btn-close btn-close-white m-2 m-auto" data-bs-dismiss="toast"
-                    aria-label="Close"></button>
-            </div>
-        </div>
-    @endif --}}
-
-    {{-- <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get the toast element
-            var toastElement = document.querySelector('.toast');
-    
-            // If session has an error message, display the toast
-            if (toastElement) {
-                var toast = new bootstrap.Toast(toastElement);
-                toast.show();
-            }
-        });
-    </script> --}}
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
