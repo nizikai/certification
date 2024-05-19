@@ -17,13 +17,6 @@
 
         <div class="flex-col m-3">
 
-            <div class="d-flex flex-row">
-                <button type="submit" onclick="window.location.href='/new-book-field'"
-                    class="btn btn-primary custom-width-10">+
-                    Add Book</button>
-
-                {{-- <input type="text" name="searchForm" class="form-control m-3" placeholder="Search"> --}}
-            </div>
             <div class="table-container">
                 <table class="table">
                     <thead>
@@ -31,60 +24,70 @@
                             <th scope="col">ISBN</th>
                             <th scope="col">Title</th>
                             <th scope="col">Author</th>
-                            <th scope="col">Stock</th>
-                            <th scope="col"></th>
+                            <th scope="col">Member</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Borrow Date</th>
+                            <th scope="col">Due Date</th>
+                            <th scope="col">Return Date</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($registeredBooks as $book)
-                            <tr>
-                                <th scope="row">{{ $book->ISBN }}</th>
-                                <td class="custom-width-30">{{ $book->title }}</td>
-                                <td class="custom-width-30">{{ $book->author }}</td>
-                                <td class="custom-width-5">{{ $book->stock }}</td>
-                                <td class="custom-width-5"><button type="button"
-                                        onclick="window.location.href='{{ route('editBook', ['id' => $book->id]) }}'"
-                                        class="btn btn-primary btn-sm">Edit</button></td>
-                                <td class="custom-width-5">
-                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal{{ $book->id }}">
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr>
+                        @foreach ($items as $item)
+                        <tr>
+                            <td>{{ $item->book->ISBN }}</td>
+                            <td>{{ $item->book->title }}</td>
+                            <td>{{ $item->book->author }}</td>
+                            <td>{{ $item->member->name }}</td>
+                            <td>{{ $item->member->phone }}</td>
+                            <td>{{ $item->borrow }}</td>
+                            <td>{{ $item->due }}</td>
+                            <td>
+                                @if ($item->return)
+                                <span class="badge rounded-pill text-bg-success">{{ $item->return }}</span>
+                                @else
+                                <span class="badge rounded-pill text-bg-warning">Not yet returned</span>
+                                @endif
+                            </td>
+                            <td class="custom-width-5">
+                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal{{ $item->id }}">
+                                    Return
+                                </button>
+                            </td>
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>
+                
             </div>
         </div>
     </div>
 
-    @foreach ($registeredBooks as $book)
+    @foreach ($items as $item)
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal{{ $book->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="exampleModal{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Confirm Deletion</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Confirm Return</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Are you sure you want to delete this item?
+                        Retrieve the book from {{ $item->member->name }}?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <form action="{{ route('deleteBook', ['id' => $book->id]) }}" method="GET">
+                        <form action="{{ route('returnBook', ['id' => $item->id]) }}" method="GET">
                             @csrf
-                            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                            <button type="submit" class="btn btn-success">Yes, Retrieve</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     @endforeach
-
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

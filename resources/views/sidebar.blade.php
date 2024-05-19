@@ -1,7 +1,7 @@
 <div class="d-flex flex-column p-3 text-white bg-custom-gray sidebar" id="sidebar">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+    <div class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
         <span class="fs-4 ms-3">Library</span>
-    </a>
+    </div>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
@@ -17,13 +17,13 @@
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link text-white">
+            <a href="{{ route('return')}}" class="nav-link text-white">
                 <img src="../asset/return.png" alt="" width="38" height="38" class="me-2">
                 Return
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link text-white">
+            <a href="{{ route('member')}}" class="nav-link text-white">
                 <img src="../asset/member.png" alt="" width="38" height="38" class="me-2">
                 Member
             </a>
@@ -45,7 +45,15 @@
             <strong>{{ session('librarian_name') }}</strong>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-            <li><a class="dropdown-item" href="#">Sign out</a></li>
+            <li>
+                <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                    @csrf
+                    <button type="submit" class="dropdown-item" style="background: none; border: none; padding: 8; cursor: pointer;">
+                        Sign out
+                    </button>
+                </form>
+            </li>
+            
         </ul>
     </div>
 </div>

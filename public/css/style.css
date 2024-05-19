@@ -50,6 +50,10 @@ main {}
     background-color: #28242c;
 }
 
+.bg-custom-lightgray {
+    background-color: #9f9f9f;
+}
+
 .sidebar .nav-link.active {
     background-color: #2874d4;
 }
@@ -81,3 +85,5 @@ main {}
 .custom-width-40 {
     width: 40vw;
 }
+
+

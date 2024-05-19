@@ -20,7 +20,6 @@ class CreateLibrariansTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->boolean('admin')->default(false);
             $table->boolean('deleted')->default(false);
             $table->timestamps();
         });

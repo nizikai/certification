@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('members', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->string('name');
-            $table->integer('phone');
+            $table->string('phone');
             $table->boolean('deleted')->default(false);
             $table->timestamps();
         });

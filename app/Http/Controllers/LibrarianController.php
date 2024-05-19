@@ -29,7 +29,6 @@ class LibrarianController extends Controller
             Session::put('librarian_id', $librarian->id);
             Session::put('librarian_email', $librarian->email);
             Session::put('librarian_name', $librarian->name);
-            Session::put('librarian_admin', $librarian->admin);
             return redirect()->route('catalog');
         }
 

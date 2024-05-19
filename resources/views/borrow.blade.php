@@ -15,8 +15,35 @@
 
         @include('sidebar')
 
-        INI BROOR
+        <div class="flex-col m-3">
 
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ISBN</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Author</th>
+                            <th scope="col">Stock</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($items as $item)
+                            <tr>
+                                <th scope="row">{{ $item->ISBN }}</th>
+                                <td class="custom-width-30">{{ $item->title }}</td>
+                                <td class="custom-width-30">{{ $item->author }}</td>
+                                <td class="custom-width-30">{{ $item->stock }}</td>
+                                <td class="custom-width-5"><button type="button"
+                                        onclick="window.location.href='{{ route('new-borrow-field', ['id' => $item->id]) }}'"
+                                        class="btn btn-primary btn-sm">Borrow</button></td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

@@ -18,9 +18,9 @@
         <div class="flex-col m-3">
 
             <div class="d-flex flex-row">
-                <button type="submit" onclick="window.location.href='/new-book-field'"
+                <button type="submit" onclick="window.location.href='/new-member-field'"
                     class="btn btn-primary custom-width-10">+
-                    Add Book</button>
+                    Add Member</button>
 
                 {{-- <input type="text" name="searchForm" class="form-control m-3" placeholder="Search"> --}}
             </div>
@@ -28,27 +28,23 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">ISBN</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Author</th>
-                            <th scope="col">Stock</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Phone</th>
                             <th scope="col"></th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($registeredBooks as $book)
+                        @foreach ($registeredMembers as $member)
                             <tr>
-                                <th scope="row">{{ $book->ISBN }}</th>
-                                <td class="custom-width-30">{{ $book->title }}</td>
-                                <td class="custom-width-30">{{ $book->author }}</td>
-                                <td class="custom-width-5">{{ $book->stock }}</td>
+                                <td class="custom-width-30">{{ $member->name }}</td>
+                                <td class="custom-width-30">{{ $member->phone }}</td>
                                 <td class="custom-width-5"><button type="button"
-                                        onclick="window.location.href='{{ route('editBook', ['id' => $book->id]) }}'"
+                                        onclick="window.location.href='{{ route('editMember', ['id' => $member->id]) }}'"
                                         class="btn btn-primary btn-sm">Edit</button></td>
                                 <td class="custom-width-5">
                                     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal{{ $book->id }}">
+                                        data-bs-target="#exampleModal{{ $member->id }}">
                                         Delete
                                     </button>
                                 </td>
@@ -60,9 +56,9 @@
         </div>
     </div>
 
-    @foreach ($registeredBooks as $book)
+    @foreach ($registeredMembers as $member)
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal{{ $book->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="exampleModal{{ $member->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -75,7 +71,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <form action="{{ route('deleteBook', ['id' => $book->id]) }}" method="GET">
+                        <form action="{{ route('deleteMember', ['id' => $member->id]) }}" method="GET">
                             @csrf
                             <button type="submit" class="btn btn-danger">Yes, Delete</button>
                         </form>

@@ -21,10 +21,9 @@
 
 
             <div class="fs-3 fw-bold ">
-                Update Book Detail
+                Add New Book
             </div>
-            <form action="{{ route('updateBook', ['id' => $book->id]) }}" method="GET">
-
+            <form action="{{ route('addBook') }}" method="POST">
 
                 @csrf
                 {{-- ISBN field --}}
@@ -46,8 +45,7 @@
                 {{-- Add button --}}
                 <br>
 
-                <button type="submit" class="btn btn-primary">Update Book</button>
-
+                <button type="submit" class="btn btn-primary">Add Book</button>
             </form>
         </div>
     </div>
