@@ -6,6 +6,8 @@ use App\Http\Controllers\LibrarianController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\BorrowController;
 use App\Models\Member;
+use Illuminate\Support\Facades\Session;
+
 
 //to display login page
 Route::get('/login', function () {
@@ -27,6 +29,9 @@ Route::get('/catalog', [BookController::class, 'allBook'])->name('catalog');
 
 // to display book fields
 Route::get('/new-book-field', function () {
+    if (!Session::has('librarian_id')) {
+        return redirect()->route('login')->with('error', 'Invalid Credential, Please Login');
+    }
     return view('new-book-field');
 })->name('new-book-field');
 
@@ -44,6 +49,9 @@ Route::get('/deleteBook/{id}', [BookController::class, 'deleteBook'])->name('del
 
 // to display member fields
 Route::get('/new-member-field', function () {
+    if (!Session::has('librarian_id')) {
+        return redirect()->route('login')->with('error', 'Invalid Credential, Please Login');
+    }
     return view('new-member-field');
 })->name('new-member-field');
 

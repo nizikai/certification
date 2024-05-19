@@ -6,12 +6,18 @@ use Illuminate\Http\Request;
 use App\Models\Borrow;
 use App\Models\Books;
 use App\Models\Members;
+use Illuminate\Support\Facades\Session;
+
 
 class BorrowController extends Controller
 {
     //to show all books avaible to borrow
     public function availableBorrow()
     {
+        if (!Session::has('librarian_id')) {
+            return redirect()->route('login')->with('error', 'Invalid Credential, Please Login');
+        }
+
         $items = Books::where('deleted', 0)
             ->where('stock', '>=', 1)
             ->orderBy('created_at', 'desc')
@@ -23,6 +29,10 @@ class BorrowController extends Controller
     //to get data needed to borrow books
     public function borrowData($id)
     {
+        if (!Session::has('librarian_id')) {
+            return redirect()->route('login')->with('error', 'Invalid Credential, Please Login');
+        }
+
         $registeredMembers = Members::where('deleted', 0)
             ->orderBy('created_at', 'desc')
             ->get();
@@ -41,6 +51,10 @@ class BorrowController extends Controller
     //to borrow books
     public function borrowBook(Request $request, $id)
     {
+        if (!Session::has('librarian_id')) {
+            return redirect()->route('login')->with('error', 'Invalid Credential, Please Login');
+        }
+
         // Validate the form data
         $validatedData = $request->validate([
             'member_id' => 'required',
@@ -73,6 +87,10 @@ class BorrowController extends Controller
     //to get all books borrowed
     public function allBorrow()
     {
+        if (!Session::has('librarian_id')) {
+            return redirect()->route('login')->with('error', 'Invalid Credential, Please Login');
+        }
+
         $items = Borrow::with(['book:id,ISBN,title,author', 'member:id,name,phone'])
             ->where('deleted', 0)
             ->orderBy('created_at', 'desc')
@@ -85,6 +103,10 @@ class BorrowController extends Controller
     //to return books
     public function returnBook(Request $request, $id)
     {
+        if (!Session::has('librarian_id')) {
+            return redirect()->route('login')->with('error', 'Invalid Credential, Please Login');
+        }
+        
         // get the borrow record by its ID
         $borrow = Borrow::findOrFail($id);
 

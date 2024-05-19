@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Books;
+use Illuminate\Support\Facades\Session;
 
 class BookController extends Controller
 {
     public function allBook()
     {
+        if (!Session::has('librarian_id')) {
+            return redirect()->route('login')->with('error', 'Invalid Credential, Please Login');
+        }
+
         $registeredBooks = Books::where('deleted', 0)
             ->orderBy('created_at', 'desc')
             ->get();
@@ -19,6 +24,10 @@ class BookController extends Controller
 
     public function addBook(Request $request)
     {
+        if (!Session::has('librarian_id')) {
+            return redirect()->route('login')->with('error', 'Invalid Credential, Please Login');
+        }
+
         // Validate the form data 
         $validatedData = $request->validate([
             'isbnForm' => 'required|integer',
@@ -40,6 +49,10 @@ class BookController extends Controller
 
     public function editBook(Request $request, $id)
     {
+        if (!Session::has('librarian_id')) {
+            return redirect()->route('login')->with('error', 'Invalid Credential, Please Login');
+        }
+
         $book = Books::findOrFail($id);
         // dump($book);
         return view('book-field', compact('book'));
@@ -47,6 +60,10 @@ class BookController extends Controller
 
     public function updateBook(Request $request, $id)
     {
+        if (!Session::has('librarian_id')) {
+            return redirect()->route('login')->with('error', 'Invalid Credential, Please Login');
+        }
+
         // Validate the form data 
         $validatedData = $request->validate([
             'isbnForm' => 'required|integer',
@@ -71,6 +88,10 @@ class BookController extends Controller
 
     public function deleteBook(Request $request, $id)
     {
+        if (!Session::has('librarian_id')) {
+            return redirect()->route('login')->with('error', 'Invalid Credential, Please Login');
+        }
+        
         // Find the book by its ID
         $book = Books::findOrFail($id);
 

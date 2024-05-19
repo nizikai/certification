@@ -12,6 +12,10 @@ class MemberController extends Controller
 {
     public function allMember()
     {
+        if (!Session::has('librarian_id')) {
+            return redirect()->route('login')->with('error', 'Invalid Credential, Please Login');
+        }
+
         $registeredMembers = Members::where('deleted', 0)
             ->orderBy('created_at', 'desc')
             ->get();
@@ -22,6 +26,10 @@ class MemberController extends Controller
 
     public function addMember(Request $request)
     {
+        if (!Session::has('librarian_id')) {
+            return redirect()->route('login')->with('error', 'Invalid Credential, Please Login');
+        }
+
         // Validate the form data 
         $validatedData = $request->validate([
             'nameForm' => 'required',
@@ -39,6 +47,10 @@ class MemberController extends Controller
 
     public function editMember(Request $request, $id)
     {
+        if (!Session::has('librarian_id')) {
+            return redirect()->route('login')->with('error', 'Invalid Credential, Please Login');
+        }
+
         $member = Members::findOrFail($id);
         // dump($book);
         return view('member-field', compact('member'));
@@ -46,6 +58,10 @@ class MemberController extends Controller
 
     public function updateMember(Request $request, $id)
     {
+        if (!Session::has('librarian_id')) {
+            return redirect()->route('login')->with('error', 'Invalid Credential, Please Login');
+        }
+
         // Validate the form data 
         $validatedData = $request->validate([
             'nameForm' => 'required',
@@ -66,6 +82,10 @@ class MemberController extends Controller
 
     public function deleteMember(Request $request, $id)
     {
+        if (!Session::has('librarian_id')) {
+            return redirect()->route('login')->with('error', 'Invalid Credential, Please Login');
+        }
+        
         // Find the member by its ID
         $member = Members::findOrFail($id);
 
